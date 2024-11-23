@@ -185,6 +185,43 @@ DWORD WINAPI DetectDebuggerThread(LPVOID lpParam) {
     }
     return 0;
 }
+
+DWORD WINAPI DetectDebuggerThread2(LPVOID lpParam) {
+    // 무한 루프
+    while (true) {
+
+        //프로세스 이름 감지
+        CheckProcessByName(L"cheatengine-x86_64-SSE4-AVX2.exe"); // 예시: 치트엔진 프로세스 감지
+
+        // 잠시 대기
+        Sleep(1000);  // 1000ms 대기
+    }
+    return 0;
+}
+DWORD WINAPI DetectDebuggerThread3(LPVOID lpParam) {
+    // 무한 루프
+    while (true) {
+        // NtQuery 정보 확인
+        CheckDebuggerUsingNtQuery();
+
+        // 잠시 대기
+        Sleep(1000);  // 1000ms 대기
+    }
+    return 0;
+}
+
+DWORD WINAPI DetectDebuggerThread4(LPVOID lpParam) {
+    // 무한 루프
+    while (true) {
+
+        // 소프트웨어 브레이크포인트 감지
+        DetectSoftwareBreakpoint();
+
+        // 잠시 대기
+        Sleep(1000);  // 1000ms 대기
+    }
+    return 0;
+}
 // DLL 메인 함수
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
     switch (ul_reason_for_call) {
@@ -196,6 +233,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         StartMemoryScan();
         // 디버깅 탐지 스레드 생성
         CreateThread(NULL, 0, DetectDebuggerThread, NULL, 0, NULL);
+        CreateThread(NULL, 0, DetectDebuggerThread2, NULL, 0, NULL);
+        CreateThread(NULL, 0, DetectDebuggerThread3, NULL, 0, NULL);
+        CreateThread(NULL, 0, DetectDebuggerThread4, NULL, 0, NULL);
         break;
 
     case DLL_PROCESS_DETACH:
