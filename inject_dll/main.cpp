@@ -171,15 +171,6 @@ DWORD WINAPI DetectDebuggerThread(LPVOID lpParam) {
             MessageBox(NULL, L"IsDebuggerPresent 디버거 감지!!", L"디버거 감지", MB_OK);
         }
 
-        //프로세스 이름 감지
-        CheckProcessByName(L"cheatengine-x86_64-SSE4-AVX2.exe"); // 예시: 치트엔진 프로세스 감지
-
-        // NtQuery 정보 확인
-        CheckDebuggerUsingNtQuery();
-
-        // 소프트웨어 브레이크포인트 감지
-        DetectSoftwareBreakpoint();
-
         // 잠시 대기
         Sleep(1000);  // 1000ms 대기
     }
